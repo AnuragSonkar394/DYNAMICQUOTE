@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<style>
+   
+   @media screen and (min-width: 1000px) {
+       a {
+           display: none
+       }
+   }
+
+   
+.outerdiv{
+    
+    
+    padding: 2vw 1vw 1vw 6vw;
+    width: 85%;
+    margin: 7% 4% 7% 3%;
+    border-radius: 5%;
+    height: 64vw;
+    background-color: #ffffff;
+}
+.innerdiv{
+    font-family: 'MonteCarlo', cursive;
+    color: rgb(172, 42, 19);
+    background-color: white;
+    width: 74%;
+    padding: 17% 5% 7% 15%;
+    border: solid #f0e7e7;
+    height: 29vw;
+    font-size: 5vw;
+    box-shadow: 10px 7px 5px #b9b9b9;
+    border-radius: 6%;}
+.btn{
+    
+    margin: 6%;
+    align-content: end;
+    padding-left: 24%;
+    color: #30300b;
+}
+.author{
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+button{
+  
+    color: #7b1515;
+    border-color: white;
+    border-radius: 11px;
+    box-shadow: 2px 2px 2px #92856d;
+    font-size: 6vw;}
+</style>
+</head>
+<body>
+    <div class="outerdiv">
+    <div  class="innerdiv" data-aos="flip-left"
+    data-aos-easing="ease-out-cubic"
+    data-aos-duration="2000">
+    <div id="quotes" ></div>
+    <div class="author">
+    <div class="setauthor"><p></p></div>
+    <div id="author"><ul></u></div>
+    </div>
+    </div>
+    <div class="btn"><button id="newQ"><i class="fa fa-mail-forward"></i></button>
+        <button id="whatsapp" ><i class="fa fa-whatsapp"></i></button></div>
+    </div>
+    <script>
+         AOS.init();
+        const quotes= document.getElementById("quotes");
+        const author= document.getElementById("author");
+        const newQ= document.getElementById("newQ");
+        const whatsapp= document.getElementById("whatsapp");
+        
+
+        let realData="";
+        const getQuotes = async ()=>{
+     const api="https://type.fit/api/quotes";
+       
+     const whtsapp=()=>{let rnum = Math.floor(Math.random()*10);
+          let whatsapppost=`whatsapp://send?text=${realData[rnum].text}`;
+          window.open(whatsapppost);
+     };
+      const getNewQuotes=()=>{
+
+          let rnum = Math.floor(Math.random()*10);
+          quotes.innerText=`${realData[rnum].text}`;
+          author.innerText=` By: ${realData[rnum].author}`;
+
+      };
+        try{
+            let data=await fetch(api);
+        realData= await data.json();
+        getNewQuotes();
+             // console.log(data.json);
+
+        }
+        catch(error){
+
+        }
+       
+        newQ.addEventListener("click", getNewQuotes);
+        whatsapp.addEventListener("click", whtsapp);
+        };
+        
+       
+        getQuotes();
+        </script>
+</body>
+</html>
